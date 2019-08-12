@@ -1,0 +1,126 @@
+<html>
+    <head>
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <link href="Index.css" rel="stylesheet">
+            <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+            <link rel="stylesheet" href="css/animate.css">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <script>var rankArray=["iron","bronze","silver","gold","platinum","diamond"];</script>
+        <title>LeaguePros: Store</title>
+    </head>
+    <body>  
+              
+            <div class="carousel zindexTop">
+                    <a class="carousel-item Carousel-Big" href="#one!"><img src="Images/Slider (1).png"></a>
+                    <a class="carousel-item Carousel-Big" href="#two!"><img src="Images/Slider (2).png"></a>
+                    <a class="carousel-item Carousel-Big" href="#three!"><img src="Images/Slider (3).png"></a>
+                    <a class="carousel-item Carousel-Big" href="#four!"><img src="Images/Slider (4).png"></a>
+                    <a class="carousel-item Carousel-Big" href="#five!"><img src="Images/Slider (5).png"></a>
+                    <a class="carousel-item Carousel-Big" href="#six!"><img src="Images/Slider (6).png"></a>
+                    <a class="carousel-item Carousel-Big" href="#seven!"><img src="Images/Slider (7).png"></a>
+                    <a class="carousel-item Carousel-Big" href="#eight!"><img src="Images/Slider (8).png"></a>
+                    <a class="carousel-item Carousel-Big" href="#nine!"><img src="Images/Slider (9).png"></a>
+                    <a class="carousel-item Carousel-Big" href="#ten!"><img src="Images/Slider (10).png"></a>
+                  </div>
+        <div class="MainBox">
+            <div class="MainContainer">
+                <div class="rankBox">
+                    <div><h4>Current Rank</h4></div>
+                        <div class="carousel rankCarousel">
+                                <script>
+                                    for(let i=0; i<rankArray.length-1; i++)
+                                    {
+                                        for(let j=0; j<4; j++)
+                                        { 
+                                            document.write("<div class=\"carousel-item Carousel-Small\" href=\"#_0_"+parseInt((i*4)+j)+"\"><h5>Division "+parseInt(4-(j))+"</h5><img src=\"Images/"+rankArray[i]+"2.png\"></div>")
+                                        }
+                                    }
+                                    document.write("<div class=\"carousel-item Carousel-Small\" href=\"#_0_"+20+"\"><h5>Division "+parseInt(4)+"</h5><img src=\"Images/"+rankArray[rankArray.length-1]+"2.png\"></div>")
+                                </script>
+                        </div>                                
+                    <div class="displayHorizontal">
+                        <script>
+                            for(let i=0; i<rankArray.length-1; i++)
+                            {
+                                for(let j=0; j<4; j++)
+                                {
+                                    document.write("<div class=\""+rankArray[i]+" rankBar\" id=\"0_"+parseInt((i*4)+j)+"\"></div>")
+                                }
+                            }
+                            document.write("<div class=\""+rankArray[rankArray.length-1]+" rankBar\" id=\"0_"+parseInt(20)+"\"></div>")
+                        </script>
+                    </div>
+                </div>
+                <div class="rankBox">
+                    <div><h4>Desired Rank</h4></div>
+                        <div class="carousel rankCarousel">
+                                <script>
+                                    for(let i=0; i<rankArray.length-1; i++)
+                                    {
+                                        for(let j=0; j<4; j++)
+                                        { 
+                                            document.write("<div class=\"carousel-item Carousel-Small\" href=\"#_1_"+parseInt((i*4)+j)+"\"><h5>Division "+parseInt(4-(j))+"</h5><img src=\"Images/"+rankArray[i]+"2.png\"></div>")
+                                        }
+                                    }
+                                    document.write("<div class=\"carousel-item Carousel-Small\" href=\"#_1_"+20+"\"><h5>Division "+parseInt(4)+"</h5><img src=\"Images/"+rankArray[rankArray.length-1]+"2.png\"></div>")
+                                </script>
+                        </div>                               
+                    <div class="displayHorizontal">
+                        <script>
+                            for(let i=0; i<rankArray.length-1; i++)
+                            {
+                                for(let j=0; j<4; j++)
+                                {
+                                    document.write("<div class=\""+rankArray[i]+" rankBar\" id=\"1_"+parseInt((i*4)+j)+"\"></div>")
+                                }
+                            }
+                            document.write("<div class=\""+rankArray[rankArray.length-1]+" rankBar\" id=\"1_"+parseInt(20)+"\"></div>")
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="purchasingInfo">
+                <h5 id="price">0$</h5>
+                <a class="waves-effect waves-light btn">Purchase</a>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script>
+        var priceArray = [0,15,30,48,68,88,111,134,159,184,212,240,270,305,340,378,418,463,513,568,628];
+        var rankFrom = 0, rankTo = 0;
+        var price = 0;
+        var rankBar = document.getElementsByClassName("rankBar")
+        for(let i=0; i<rankBar.length; i++)
+            rankBar[i].addEventListener("click", rankBarClicked);
+
+    var CarouselElems = document.querySelectorAll('.carousel');
+    for(let i=1; i<CarouselElems.length; i++)
+        M.Carousel.init(CarouselElems[i],{onCycleTo:function(SelectedElem){
+            if(SelectedElem.getAttribute("href").split("_")[1] == 0)
+                rankFrom = SelectedElem.getAttribute("href").split("_")[2];
+            if(SelectedElem.getAttribute("href").split("_")[1] == 1)
+                rankTo = SelectedElem.getAttribute("href").split("_")[2];
+         price = priceArray[rankTo]-priceArray[rankFrom];
+        if(price<0)
+            price=0;
+        document.getElementById("price").textContent=String(price)+"$";
+    }
+    });
+    M.Carousel.init(CarouselElems[0],{fullWidth:true, indicators:true})
+    var BigCarousel = M.Carousel.getInstance(CarouselElems[0]);
+    var carouselFrom = M.Carousel.getInstance(CarouselElems[1]);
+    var carouselTo = M.Carousel.getInstance(CarouselElems[2]);
+
+    function rankBarClicked()
+    {
+        if(event.target.id.split("_")[0] == 0)
+            carouselFrom.set(event.target.id.split("_")[1]);
+        if(event.target.id.split("_")[0] == 1)
+            carouselTo.set(event.target.id.split("_")[1]);
+    }
+    setInterval(function(){ 
+        BigCarousel.next();
+    }, 2000);
+    </script>
+</html>
